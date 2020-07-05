@@ -42,8 +42,8 @@ namespace Source.Repository.Repository
         public async Task<bool> UpdateNews(string id, News news)
         {
             ReplaceOneResult actionResult = await _context.News.ReplaceOneAsync(x => x.Id.Equals(id),
-                                        news,
-                                        new ReplaceOptions { IsUpsert  = true});
+                                                news,
+                                                new ReplaceOptions { IsUpsert  = true});
 
             return actionResult.IsAcknowledged && actionResult.ModifiedCount >0;
         }
@@ -53,6 +53,5 @@ namespace Source.Repository.Repository
         {
             return await _context.News.Find(x => x.Id == id).FirstOrDefaultAsync();
         }
-
     }
 }

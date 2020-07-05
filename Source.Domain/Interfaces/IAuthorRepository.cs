@@ -8,8 +8,9 @@ namespace Source.Domain.Interfaces
     {
         Task<IEnumerable<Author>> GetAllAuthors();
         Task AddAuthor(Author author);
-       // Task<bool> RemoveAuthor(Author author);
-       // Task<bool> UpdateAuthor(string id, string nome);
+        Task<bool> RemoveAuthor(string id);
+        Task<bool> UpdateAuthor(string id, Author author);
+        Task<Author> GetAuthorFromId(string id);
 
     }
 }

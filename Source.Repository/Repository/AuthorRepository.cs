@@ -28,5 +28,24 @@ namespace Source.Repository.Repository
             await _context.Authors.InsertOneAsync(author);
         }
 
+        public async Task<bool> RemoveAuthor(string id)
+        {
+            DeleteResult actionResult = await _context.Authors.DeleteOneAsync(Builders<Author>.Filter.Eq("Id",id));
+            return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
+        }
+
+        public async Task<bool> UpdateAuthor(string id, Author author)
+        {
+            ReplaceOneResult actionResult = await _context.Authors.ReplaceOneAsync(x => x.Id.Equals(id),
+                                                author,
+                                                new ReplaceOptions { IsUpsert  = true});
+
+            return actionResult.IsAcknowledged && actionResult.ModifiedCount >0;
+        }
+
+        public async Task<Author> GetAuthorFromId(string id)
+        {
+             return await _context.Authors.Find(x => x.Id == id).FirstOrDefaultAsync();
+        }
     }
 }
