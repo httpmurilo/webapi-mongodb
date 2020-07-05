@@ -36,5 +36,37 @@ namespace Source.Api.Controllers
              await _repository.AddAuthor(author);
              return Created($"/api/Author/id","");
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteNews(string id)
+        {
+            var authorExistis = await _repository.GetAuthorFromId(id);
+            if(authorExistis == null)
+            {
+                return NotFound("Author not found with this ID");
+            }
+            await _repository.RemoveAuthor(id);
+            return Ok();
+        }
+
+        [HttpPut("edit/{id}")]
+        public async Task<IActionResult> UpdateNews(string id, Author author)
+        {
+            var authorExistis = await _repository.GetAuthorFromId(id);
+            if(authorExistis == null)
+            {
+                return NotFound("Author not found with this ID");
+            }
+            await _repository.UpdateAuthor(id, author);
+            return Ok();
+        }
+
+        [HttpGet("getById/{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var author = await _repository.GetAuthorFromId(id);
+            var authorForReturn = _mapper.Map<AuthorDto>(author);
+            return Ok(authorForReturn);
+        }
     }
 }
