@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Source.Api.Filters;
 using Source.Api.Profiles;
 using Source.Data.Helpers;
 using Source.Domain.Interfaces;
@@ -31,6 +33,11 @@ namespace Source.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+            services
+                .AddMvc(options => options.Filters.Add(typeof(ModelStateValidatorFilter)))
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+
             services.Configure<DatabaseSettings>(opt => 
             {
                 opt.Url = Configuration.GetSection("MongoConnection:Url").Value;
