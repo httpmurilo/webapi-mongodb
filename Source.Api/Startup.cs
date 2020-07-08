@@ -6,6 +6,7 @@ using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -56,6 +57,15 @@ namespace Source.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.UseExceptionHandler (x => 
+            {
+                x.Run (async context => 
+                {
+                    context.Response.StatusCode = 500;
+                    await context.Response.WriteAsync ("Sorry :( An unexpected fault happened. Try again later.");
+                });
+            });
 
             app.UseHttpsRedirection();
 

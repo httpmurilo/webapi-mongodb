@@ -71,5 +71,12 @@ namespace Source.Api.Controllers
             var authorForReturn = _mapper.Map<AuthorDto>(author);
             return Ok(authorForReturn);
         }
+
+        [HttpOptions]
+        public IActionResult GetAuthorsOptions()
+        {
+            Response.Headers.Add("Allow","GET,OPTIONS,POST,DELETE,GET");
+            return Ok();
+        }
     }
 }

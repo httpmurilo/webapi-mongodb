@@ -21,7 +21,15 @@ namespace Source.Api.Controllers
                 throw new ArgumentNullException(nameof(repository));
             _mapper = mapper;
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var news = await _repository.GetAllNews();
+            var newsForReturn = _mapper.Map<IEnumerable<NewsDto>>(news);
+            return Ok(newsForReturn);
+        }
+
         [HttpGet("filter={queryFilter}")]
         public async Task<IActionResult> Get(string queryFilter)
         {   
@@ -31,7 +39,7 @@ namespace Source.Api.Controllers
             return Ok(newsForReturn);
         }
 
-        [HttpGet("getById/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
             var news = await _repository.getNewsById(id);
@@ -60,7 +68,7 @@ namespace Source.Api.Controllers
             return Ok();
         }
 
-        [HttpPut("edit/{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateNews(string id, News news)
         {
             var newsExists = await _repository.getNewsById(id);
@@ -70,6 +78,13 @@ namespace Source.Api.Controllers
                 return NotFound("News not found with this ID");
             }
             await _repository.UpdateNews(id, news);
+            return Ok();
+        }
+
+         [HttpOptions]
+        public IActionResult GetNewsOptions()
+        {
+            Response.Headers.Add("Allow","GET,OPTIONS,POST,DELETE,GET/FILTER={queryFilter}");
             return Ok();
         }
     }
