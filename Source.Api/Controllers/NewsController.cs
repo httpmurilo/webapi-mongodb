@@ -51,8 +51,8 @@ namespace Source.Api.Controllers
         [HttpPost]
         public async Task <IActionResult> AddNews(News news)
         {
-             await _repository.AddNews(news);
-             return Created($"/api/Author/","");
+            await _repository.AddNews(news);
+            return Created($"/api/News/news.id",new {news.Id});
         }
 
         [HttpDelete("{id}")]
@@ -81,7 +81,7 @@ namespace Source.Api.Controllers
             return Ok();
         }
 
-         [HttpOptions]
+        [HttpOptions]
         public IActionResult GetNewsOptions()
         {
             Response.Headers.Add("Allow","GET,OPTIONS,POST,DELETE,GET/FILTER={queryFilter}");

@@ -26,6 +26,7 @@ namespace Source.Api.Controllers
         public async Task<IActionResult> Get()
         {
             var authors = await _repository.GetAllAuthors();
+
             var authorForReturn = _mapper.Map<IEnumerable<AuthorDto>>(authors);
             return Ok(authorForReturn);
         }
@@ -34,7 +35,7 @@ namespace Source.Api.Controllers
         public async Task <IActionResult> AddAuthor(Author author)
         {
              await _repository.AddAuthor(author);
-             return Created($"/api/Author/id","");
+             return Created($"/api/Author/author.id",new {author.Id});
         }
 
         [HttpDelete("{id}")]
