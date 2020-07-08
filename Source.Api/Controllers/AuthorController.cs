@@ -40,8 +40,9 @@ namespace Source.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteNews(string id)
         {
-            var authorExistis = await _repository.GetAuthorFromId(id);
-            if(authorExistis == null)
+            var authorExists = await _repository.GetAuthorById(id);
+
+            if(authorExists == null)
             {
                 return NotFound("Author not found with this ID");
             }
@@ -49,11 +50,12 @@ namespace Source.Api.Controllers
             return Ok();
         }
 
-        [HttpPut("edit/{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateNews(string id, Author author)
         {
-            var authorExistis = await _repository.GetAuthorFromId(id);
-            if(authorExistis == null)
+            var authorExists = await _repository.GetAuthorById(id);
+            
+            if(authorExists == null)
             {
                 return NotFound("Author not found with this ID");
             }
@@ -61,10 +63,11 @@ namespace Source.Api.Controllers
             return Ok();
         }
 
-        [HttpGet("getById/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            var author = await _repository.GetAuthorFromId(id);
+            var author = await _repository.GetAuthorById(id);
+
             var authorForReturn = _mapper.Map<AuthorDto>(author);
             return Ok(authorForReturn);
         }

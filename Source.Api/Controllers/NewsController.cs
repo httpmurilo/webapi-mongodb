@@ -22,10 +22,11 @@ namespace Source.Api.Controllers
             _mapper = mapper;
         }
         
-        [HttpGet("getByParameter/{parameter}")]
-        public async Task<IActionResult> Get(string parameter)
+        [HttpGet("filter={queryFilter}")]
+        public async Task<IActionResult> Get(string queryFilter)
         {   
-            var news =  await _repository.GetNews(parameter);
+            var news =  await _repository.GetNews(queryFilter);
+
             var newsForReturn = _mapper.Map<IEnumerable<NewsDto>>(news);
             return Ok(newsForReturn);
         }
@@ -33,7 +34,8 @@ namespace Source.Api.Controllers
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            var news = await _repository.GetNewsForId(id);
+            var news = await _repository.getNewsById(id);
+
             var newsForReturn = _mapper.Map<NewsDto>(news);
             return Ok(newsForReturn);
         }
@@ -48,8 +50,9 @@ namespace Source.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteNews(string id)
         {
-            var newsExists = await _repository.GetNewsForId(id);
-            if(newsExists == null)
+            var newsExists = await _repository.getNewsById(id);
+
+            if (newsExists == null)
             {
                 return NotFound("News not found with this ID");
             }
@@ -60,8 +63,9 @@ namespace Source.Api.Controllers
         [HttpPut("edit/{id}")]
         public async Task<IActionResult> UpdateNews(string id, News news)
         {
-            var newsExists = await _repository.GetNewsForId(id);
-            if(newsExists == null)
+            var newsExists = await _repository.getNewsById(id);
+
+            if (newsExists == null)
             {
                 return NotFound("News not found with this ID");
             }

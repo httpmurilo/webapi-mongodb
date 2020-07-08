@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using Source.Data.Context;
 using Source.Data.Helpers;
@@ -26,6 +25,7 @@ namespace Source.Repository.Repository
         public async Task<IEnumerable<News>> GetNews(string parameter)
         {
             var query = _context.News.Find(x => x.Title.Contains(parameter) || x.Body.Contains(parameter));
+
             return await query.ToListAsync();
         }
         public async Task AddNews(News news)
@@ -36,6 +36,7 @@ namespace Source.Repository.Repository
         public async Task<bool> RemoveNews(string id)
         {
             DeleteResult actionResult = await _context.News.DeleteOneAsync(Builders<News>.Filter.Eq("Id",id));
+
             return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
         }
 
@@ -49,7 +50,7 @@ namespace Source.Repository.Repository
         }
 
 
-        public async Task<News> GetNewsForId(string id)
+        public async Task<News> getNewsById(string id)
         {
             return await _context.News.Find(x => x.Id == id).FirstOrDefaultAsync();
         }

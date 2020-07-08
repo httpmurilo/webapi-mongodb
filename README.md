@@ -10,8 +10,8 @@ Arquitetura do projeto
 
 ```sh
 $ git  clone https://github.com/httpmurilo/webapi-mongodb.git
-$ dotnet restore
 $ cd Source.Api 
+$ dotnet restore
 $ dotnet run
 ```
 #### Banco de dados
@@ -28,3 +28,7 @@ https://localhost:5001/swagger/index.html
 #### Suite de testes
 
 Criada com Insonnia.
+
+#### Banco 
+
+Banco hospedado na umbler.

@@ -31,6 +31,7 @@ namespace Source.Repository.Repository
         public async Task<bool> RemoveAuthor(string id)
         {
             DeleteResult actionResult = await _context.Authors.DeleteOneAsync(Builders<Author>.Filter.Eq("Id",id));
+
             return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
         }
 
@@ -43,7 +44,7 @@ namespace Source.Repository.Repository
             return actionResult.IsAcknowledged && actionResult.ModifiedCount >0;
         }
 
-        public async Task<Author> GetAuthorFromId(string id)
+        public async Task<Author> GetAuthorById(string id)
         {
              return await _context.Authors.Find(x => x.Id == id).FirstOrDefaultAsync();
         }
