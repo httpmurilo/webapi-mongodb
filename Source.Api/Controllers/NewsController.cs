@@ -35,8 +35,7 @@ namespace Source.Api.Controllers
         {   
             var news =  await _repository.GetNews(queryFilter);
 
-            var newsForReturn = _mapper.Map<IEnumerable<NewsDto>>(news);
-            return Ok(newsForReturn);
+            return Ok(news);
         }
 
         [HttpGet("{id}")]

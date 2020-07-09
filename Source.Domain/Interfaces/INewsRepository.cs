@@ -10,7 +10,7 @@ namespace Source.Domain.Interfaces
         Task AddNews(News news);
         Task<bool> RemoveNews(string id);
         Task<bool> UpdateNews(string id, News news);
-        Task<IEnumerable<News>> GetNews(string parameter);
+        Task<IEnumerable<object>> GetNews(string parameter);
         Task<News> getNewsById(string id);
 
     }

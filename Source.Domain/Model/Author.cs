@@ -14,7 +14,5 @@ namespace Source.Domain.Model
         [BsonRequired()]
         public string Name { get; set;}
         
-        [BsonDateTimeOptions()]
-        public DateTime RegisteredIn { get; set; } = DateTime.Now;
     }
 }
