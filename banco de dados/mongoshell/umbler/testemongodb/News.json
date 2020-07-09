@@ -1,0 +1,14 @@
+{ 
+    "_id" : ObjectId("5f074098065b1806599aac7e"), 
+    "Title" : "Ressacada passará por sanitização antes de jogo decisivo do Avaí no Catarinense", 
+    "Body" : "O Avaí realizará na tarde desta quinta-feira mais uma sanitização no estádio da Ressacada, em Florianópolis. Essa será a terceira etapa do processo que busca higienizar os ambientes comuns como vestiários das equipes e da arbitragem, áreas das cabines de transmissão e camarotes que serão utilizados pelos dirigentes das duas equipes durante o Campeonato Catarinense.", 
+    "AuthorId" : ObjectId("5f074091065b1806599aac7d"), 
+    "RegisteredIn" : ISODate("2020-07-09T16:06:48.814+0000")
+}
+{ 
+    "_id" : ObjectId("5f07409c065b1806599aac7f"), 
+    "Title" : "Dybala brilha com golaços após o retorno do Campeonato Italiano em 2020", 
+    "Body" : "Confira três golaços de Paulo Dybala pela Juventus após o retorno do Campeonato Italiano em junho de 2020. O atacante argentino deixou sua marca contra o Bologna, Lecce e Genoa", 
+    "AuthorId" : ObjectId("5f074091065b1806599aac7d"), 
+    "RegisteredIn" : ISODate("2020-07-09T16:06:52.854+0000")
+}
