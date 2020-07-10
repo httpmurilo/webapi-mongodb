@@ -33,7 +33,7 @@ namespace Source.Repository.Repository
                          join author in _authorContext.Authors.AsQueryable() 
                          on news.AuthorId equals author.Id 
                          into resultsAuthor
-
+                         where (news.Body.Contains(parameter) || news.Title.Contains(parameter))
                          select new
                          {
                              body = news.Body,
