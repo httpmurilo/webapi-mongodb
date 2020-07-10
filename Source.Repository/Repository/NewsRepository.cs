@@ -29,18 +29,19 @@ namespace Source.Repository.Repository
         public async Task<IEnumerable<object>> GetNews(string parameter)
         {
 
-            var query = (from news in _context.News.AsQueryable()
+            var query = from news in _context.News.AsQueryable()
                          join author in _authorContext.Authors.AsQueryable() 
                          on news.AuthorId equals author.Id 
                          into resultsAuthor
-                         where (news.Body.Contains(parameter) || news.Title.Contains(parameter))
+                         where (news.Body.Contains(parameter) || news.Title.Contains(parameter) ||  resultsAuthor.Any(x => x.Name.Contains(parameter)))
+                         
                          select new
                          {
                              body = news.Body,
                              title = news.Title,
                              author = resultsAuthor,
 
-                         });
+                         };
                          
             return await Task.FromResult(query.ToList());
  
